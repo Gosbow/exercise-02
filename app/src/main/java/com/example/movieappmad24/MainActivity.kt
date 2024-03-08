@@ -5,7 +5,9 @@ import android.text.style.BackgroundColorSpan
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -21,12 +23,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.BottomAppBar
@@ -48,6 +52,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -78,8 +83,9 @@ fun TopandBottomBar(){
         )
      }, bottomBar =  {
             BottomAppBar (modifier = Modifier.fillMaxWidth(), content = {
-                Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
-                , modifier = Modifier
+                Row(horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
                         .fillMaxWidth()
                         .padding(60.dp, 0.dp, 60.dp, 0.dp)
                         ) {
@@ -92,7 +98,7 @@ fun TopandBottomBar(){
 
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        IconButton(onClick = { /* Aktion für das linke Symbol */ }) {
+                        IconButton(onClick = { /* Aktion für das rechte Symbol */ }) {
                             Icon(imageVector = Icons.Outlined.Star, contentDescription = "Watchlist")
                         }
                         Text("Watchlist")
@@ -108,7 +114,8 @@ fun TopandBottomBar(){
              .fillMaxSize(),
              contentAlignment = Alignment.Center
          ) {
-             MovieList(getMovies())
+
+          MovieList(getMovies())
 
          }
      }
@@ -119,7 +126,7 @@ fun TopandBottomBar(){
 @Composable
 fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing") {
     var expanded by remember { mutableStateOf(false) }
-    Column {
+    Column(modifier = Modifier.fillMaxWidth().clip(MaterialTheme.shapes.medium).padding(top = 15.dp)) {
        AsyncImage(model = images.get(0), contentDescription = title)
 
         /* Image(
@@ -127,35 +134,45 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
             contentDescription = "placeholder_image"
         )*/
         Row(
-            modifier = Modifier.background(Color.Yellow),
+            modifier = Modifier.background(color = Color.LightGray).
+            fillMaxWidth().
+            padding(30.dp, 0.dp, 30.dp, 0.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top
+            verticalAlignment = Alignment.CenterVertically
         )
         {
-            Text(id)
+            //  Text(id)
             Text(title)
-            IconButton(onClick = { expanded != expanded}) {
+            IconButton(onClick = { expanded = !expanded }) {
                 Icon(
-                    imageVector = Icons.Outlined.KeyboardArrowUp,
-                    contentDescription = "Expand the list",
-
-                    )
+                    imageVector = if (expanded) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.KeyboardArrowUp,
+                    contentDescription = if (expanded) "Close the Information" else "Expand for more Information",
+                )
             }
-            //,  = Align.RIGHT)
-            AnimatedVisibility(
-                visible = expanded,
-                enter = expandVertically(animationSpec = spring()),
-                exit = shrinkVertically(animationSpec = spring())
+
+
+
+        }
+        AnimatedVisibility(
+            modifier = Modifier.animateContentSize().background(color = Color.LightGray).fillMaxWidth(),
+            visible = expanded,
+
+            enter = expandVertically(animationSpec = spring()),
+            exit = shrinkVertically(animationSpec = spring())
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(start = 8.dp)
             ) {
-                Column(
-                    modifier = Modifier
-                        .background(color = Color.Black)
-                        .padding(8.dp)
-                ) {
-                    Text("Option 1", modifier = Modifier.clickable { /* Aktion für Option 1 */ })
-                    Text("Option 2", modifier = Modifier.clickable { /* Aktion für Option 2 */ })
-                    Text("Option 3", modifier = Modifier.clickable { /* Aktion für Option 3 */ })
-                }
+                Text(
+                    "Option 1",
+                    modifier = Modifier.clickable { /* Aktion für Option 1 */ })
+                Text(
+                    "Option 2",
+                    modifier = Modifier.clickable { /* Aktion für Option 2 */ })
+                Text(
+                    "Option 3",
+                    modifier = Modifier.clickable { /* Aktion für Option 3 */ })
             }
         }
     }
