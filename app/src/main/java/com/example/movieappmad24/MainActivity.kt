@@ -4,8 +4,17 @@ import android.os.Bundle
 import android.text.style.BackgroundColorSpan
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,12 +42,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.ui.theme.MovieAppMAD24Theme
@@ -104,11 +118,14 @@ fun TopandBottomBar(){
 
 @Composable
 fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing") {
+    var expanded by remember { mutableStateOf(false) }
     Column {
-        Image(
+       AsyncImage(model = images.get(0), contentDescription = title)
+
+        /* Image(
             painter = painterResource(id = R.drawable.movie_image),
             contentDescription = "placeholder_image"
-        )
+        )*/
         Row(
             modifier = Modifier.background(Color.Yellow),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -117,12 +134,32 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
         {
             Text(id)
             Text(title)
-            Icon(
-                imageVector = Icons.Outlined.KeyboardArrowUp,
-                contentDescription = "Expand the list"
-            )//,  = Align.RIGHT)
+            IconButton(onClick = { expanded != expanded}) {
+                Icon(
+                    imageVector = Icons.Outlined.KeyboardArrowUp,
+                    contentDescription = "Expand the list",
+
+                    )
+            }
+            //,  = Align.RIGHT)
+            AnimatedVisibility(
+                visible = expanded,
+                enter = expandVertically(animationSpec = spring()),
+                exit = shrinkVertically(animationSpec = spring())
+            ) {
+                Column(
+                    modifier = Modifier
+                        .background(color = Color.Black)
+                        .padding(8.dp)
+                ) {
+                    Text("Option 1", modifier = Modifier.clickable { /* Aktion für Option 1 */ })
+                    Text("Option 2", modifier = Modifier.clickable { /* Aktion für Option 2 */ })
+                    Text("Option 3", modifier = Modifier.clickable { /* Aktion für Option 3 */ })
+                }
+            }
         }
     }
+
 }
 
 @Composable
