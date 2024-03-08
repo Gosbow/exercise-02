@@ -66,11 +66,12 @@ fun TopandBottomBar(){
             BottomAppBar (modifier = Modifier.fillMaxWidth(), content = {
                 Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
                 , modifier = Modifier
-                        .fillMaxWidth().padding(60.dp,0.dp,60.dp,0.dp)
+                        .fillMaxWidth()
+                        .padding(60.dp, 0.dp, 60.dp, 0.dp)
                         ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = { /* Aktion für das linke Symbol */ }) {
-                            Icon(Icons.Outlined.Home, contentDescription = "Back to home")
+                            Icon(Icons.Filled.Home, contentDescription = "Back to home")
                         }
                         Text("Home")
 
@@ -93,14 +94,54 @@ fun TopandBottomBar(){
              .fillMaxSize(),
              contentAlignment = Alignment.Center
          ) {
-             Text(text = "Content in the Middle")
+             MovieList(getMovies())
+
          }
      }
 
-
-
  }
 
+
+@Composable
+fun MovieListGrid(titles: String = "Nothing") {
+    Column {
+        Image(
+            painter = painterResource(id = R.drawable.movie_image),
+            contentDescription = "placeholder_image"
+        )
+        Row(
+            modifier = Modifier.background(Color.Yellow),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top
+        )
+        {
+            Text(titles)
+            Icon(
+                imageVector = Icons.Outlined.KeyboardArrowUp,
+                contentDescription = "Expand the list"
+            )//,  = Align.RIGHT)
+        }
+    }
+}
+
+@Composable
+fun MovieList(lst: List<Movie>){//lst: List<String> = listOf("Avatar", "Lord of the Rings", "Terminator", "Spaceballs")){
+
+    LazyColumn{
+        items(lst){ lst -> MovieListGrid(lst.title) }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+// OLD CODE!
 @Composable
 fun MovieRow(titles: String = "Nothing"){
     Surface(
@@ -129,7 +170,7 @@ fun MovieRow(titles: String = "Nothing"){
 }
 
 @Composable
-fun MovieList(lst: List<Movie>){//lst: List<String> = listOf("Avatar", "Lord of the Rings", "Terminator", "Spaceballs")){
+fun MovieListbak(lst: List<Movie>){//lst: List<String> = listOf("Avatar", "Lord of the Rings", "Terminator", "Spaceballs")){
 
     LazyColumn{
         items(lst){ lst -> MovieRow(lst.title)}
