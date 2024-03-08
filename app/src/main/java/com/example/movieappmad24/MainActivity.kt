@@ -103,7 +103,7 @@ fun TopandBottomBar(){
 
 
 @Composable
-fun MovieListGrid(titles: String = "Nothing") {
+fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing") {
     Column {
         Image(
             painter = painterResource(id = R.drawable.movie_image),
@@ -115,7 +115,8 @@ fun MovieListGrid(titles: String = "Nothing") {
             verticalAlignment = Alignment.Top
         )
         {
-            Text(titles)
+            Text(id)
+            Text(title)
             Icon(
                 imageVector = Icons.Outlined.KeyboardArrowUp,
                 contentDescription = "Expand the list"
@@ -128,7 +129,8 @@ fun MovieListGrid(titles: String = "Nothing") {
 fun MovieList(lst: List<Movie>){//lst: List<String> = listOf("Avatar", "Lord of the Rings", "Terminator", "Spaceballs")){
 
     LazyColumn{
-        items(lst){ lst -> MovieListGrid(lst.title) }
+        items(lst){ lst -> MovieListGrid(lst.id, lst.title, lst.year, lst.genre, lst.director, lst.actors, lst.plot, lst.images, lst.trailer, lst.rating)
+        }
     }
 
 }
