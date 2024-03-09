@@ -116,7 +116,7 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
         .padding(top = 15.dp)) {
        Box(modifier = Modifier) {
 
-           AsyncImage(model = images.get(0), contentDescription = title,)
+           AsyncImage(model = images.get(0), contentDescription = title)
            IconButton(
                modifier = Modifier.size(48.dp).padding(8.dp).align(Alignment.TopEnd),
                onClick = { /* Kommt noch etwas, die Logik für den Rest*/ }
