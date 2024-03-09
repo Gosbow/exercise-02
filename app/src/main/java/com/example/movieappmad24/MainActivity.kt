@@ -16,10 +16,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Star
@@ -78,8 +80,6 @@ fun TopandBottomBar(){
                             Icon(Icons.Filled.Home, contentDescription = "Back to home")
                         }
                         Text("Home")
-
-
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = { /* Aktion für das rechte Symbol */ }) {
@@ -110,13 +110,29 @@ fun TopandBottomBar(){
 @Composable
 fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing") {
     var expanded by remember { mutableStateOf(false) }
-    Column(modifier = Modifier.fillMaxWidth().clip(MaterialTheme.shapes.medium).padding(top = 15.dp)) {
-       AsyncImage(model = images.get(0), contentDescription = title)
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .clip(MaterialTheme.shapes.medium)
+        .padding(top = 15.dp)) {
+       Box(modifier = Modifier) {
 
+           AsyncImage(model = images.get(0), contentDescription = title,)
+           IconButton(
+               modifier = Modifier.size(48.dp).padding(8.dp).align(Alignment.TopEnd),
+               onClick = { /* Kommt noch etwas, die Logik für den Rest*/ }
+           ) {
+               Icon(
+                   imageVector = Icons.Outlined.FavoriteBorder,
+                   contentDescription = "Add to Favorites",
+                   modifier = Modifier.size(24.dp)
+               )
+           }
+       }
         Row(
-            modifier = Modifier.background(color = Color.LightGray).
-            fillMaxWidth().
-            padding(5.dp, 0.dp, 15.dp, 0.dp),
+            modifier = Modifier
+                .background(color = Color.LightGray)
+                .fillMaxWidth()
+                .padding(5.dp, 0.dp, 15.dp, 0.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         )
@@ -131,7 +147,10 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
 
         }
         AnimatedVisibility(
-            modifier = Modifier.animateContentSize().background(color = Color.LightGray).fillMaxWidth(),
+            modifier = Modifier
+                .animateContentSize()
+                .background(color = Color.LightGray)
+                .fillMaxWidth(),
             visible = expanded,
 
             enter = expandVertically(animationSpec = spring()),
