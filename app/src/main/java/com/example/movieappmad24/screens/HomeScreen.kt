@@ -6,6 +6,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -98,7 +99,7 @@ fun TopandBottomBar(){
 
 // Parameter Overkill, but I'm not a Professional so, I'm happy with my work. :)
 @Composable
-fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing") {
+fun MovieRow(movie: Movie){//id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing", onItemClick:(String) -> Unit = {}) {
     var expanded by remember { mutableStateOf(false) }
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -106,7 +107,7 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
         .padding(top = 15.dp)) {
         Box(modifier = Modifier) {
 
-            AsyncImage(model = images.get(0), contentDescription = title)
+            AsyncImage(model = movie.images.get(0), contentDescription = movie.title)
             IconButton(
                 modifier = Modifier
                     .size(48.dp)
@@ -130,7 +131,7 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
             verticalAlignment = Alignment.CenterVertically
         )
         {
-            Text(title)
+            Text(movie.title)
             IconButton(onClick = { expanded = !expanded }) {
                 Icon(
                     imageVector = if (expanded) Icons.Outlined.KeyboardArrowDown else Icons.Outlined.KeyboardArrowUp,
@@ -152,15 +153,16 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
             Column(
                 modifier = Modifier
                     .padding(start = 8.dp)
+                    .clickable { }
             ) {
-                Text("Director: $director")
-                Text("Release: $year")
-                Text("Genre: $genre")
-                Text("Actors: $actors")
-                Text("Rating: $rating")
+                Text("Director: $movie.director")
+                Text("Release: $movie.year")
+                Text("Genre: $movie.genre")
+                Text("Actors: $movie.actors")
+                Text("Rating: $movie.rating")
                 Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier.padding(vertical = 4.dp))
-                Text("Plot: $plot")
-                Text("Trailer: $trailer")
+                Text("Plot: $movie.plot")
+                Text("Trailer: $movie.trailer")
 
             }
         }
@@ -170,9 +172,9 @@ fun MovieListGrid(id: String = "nothing", title: String = "nothing", year: Strin
 
 @Composable
 fun MovieList(lst: List<Movie>){
-
+   // var lst = List<Movie>
     LazyColumn{
-        items(lst){ lst -> MovieListGrid(lst.id, lst.title, lst.year, lst.genre, lst.director, lst.actors, lst.plot, lst.images, lst.trailer, lst.rating)
+        items(lst){ m -> MovieRow(m)
         }
     }
 
