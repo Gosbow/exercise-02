@@ -42,20 +42,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
 
 @Composable
-fun HomeScreen(){
-    TopandBottomBar()
+fun HomeScreen(navController: NavController){
+    TopandBottomBar(navController)
 }
 
 
 // Reusable Function
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopandBottomBar(){
+fun TopandBottomBar(navController: NavController){
     Scaffold(topBar = { CenterAlignedTopAppBar(modifier = Modifier.padding(top=5.dp), title = { Text(text = "MovieAppMAD24") }
     )
     }, bottomBar =  {
@@ -90,21 +91,22 @@ fun TopandBottomBar(){
             contentAlignment = Alignment.Center
         ) {
             // Change Function Call to use this Overview for another things.
-            MovieList(getMovies())
+            MovieList(getMovies(), navController)
         }
     }
 
 }
 
 
-// Parameter Overkill, but I'm not a Professional so, I'm happy with my work. :)
 @Composable
-fun MovieRow(movie: Movie){//id: String = "nothing", title: String = "nothing", year: String = "nothing", genre: String = "nothing", director: String = "nothing", actors: String = "nothing", plot: String = "nothing", images: List<String>, trailer: String = "nothing", rating:  String = "nothing", onItemClick:(String) -> Unit = {}) {
+fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}){
     var expanded by remember { mutableStateOf(false) }
     Column(modifier = Modifier
         .fillMaxWidth()
         .clip(MaterialTheme.shapes.medium)
-        .padding(top = 15.dp)) {
+        .padding(top = 15.dp)
+        .clickable {
+            onItemClick(movie.id) }) {
         Box(modifier = Modifier) {
 
             AsyncImage(model = movie.images.get(0), contentDescription = movie.title)
@@ -153,16 +155,16 @@ fun MovieRow(movie: Movie){//id: String = "nothing", title: String = "nothing", 
             Column(
                 modifier = Modifier
                     .padding(start = 8.dp)
-                    .clickable { }
+
             ) {
-                Text("Director: $movie.director")
-                Text("Release: $movie.year")
-                Text("Genre: $movie.genre")
-                Text("Actors: $movie.actors")
-                Text("Rating: $movie.rating")
+                Text("Director: ${movie.director}")
+                Text("Release: ${movie.year}")
+                Text("Genre: ${movie.genre}")
+                Text("Actors: ${movie.actors}")
+                Text("Rating: ${movie.rating}")
                 Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier.padding(vertical = 4.dp))
-                Text("Plot: $movie.plot")
-                Text("Trailer: $movie.trailer")
+                Text("Plot: ${movie.plot}")
+                Text("Trailer: ${movie.trailer}")
 
             }
         }
@@ -171,10 +173,12 @@ fun MovieRow(movie: Movie){//id: String = "nothing", title: String = "nothing", 
 }
 
 @Composable
-fun MovieList(lst: List<Movie>){
-   // var lst = List<Movie>
+fun MovieList(lst: List<Movie>, navController: NavController){
     LazyColumn{
-        items(lst){ m -> MovieRow(m)
+        items(lst){ m ->
+            MovieRow(m) {movieId ->
+                navController.navigate(route="detailscreen/$movieId")
+            }
         }
     }
 
