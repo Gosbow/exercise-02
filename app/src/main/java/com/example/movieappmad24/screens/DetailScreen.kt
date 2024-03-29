@@ -72,7 +72,7 @@ fun DetailScreen(movieId: String?, navController: NavController){
                     IconButton({ navController.popBackStack() }){ //onClick = { /* do something */ }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Localized description"
+                            contentDescription = "Return"
                         )
                     }
                 },

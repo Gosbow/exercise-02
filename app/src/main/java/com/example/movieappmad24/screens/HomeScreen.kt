@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.navigation.Screen
 
 @Composable
 fun HomeScreen(navController: NavController){
@@ -178,7 +179,7 @@ fun MovieList(lst: List<Movie>, navController: NavController){
     LazyColumn{
         items(lst){ m ->
             MovieRow(m) {movieId ->
-                navController.navigate(route="detailscreen/$movieId")
+                navController.navigate(route=Screen.Detail.MovieId(movieId))
             }
         }
     }

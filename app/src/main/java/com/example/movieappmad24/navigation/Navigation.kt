@@ -30,9 +30,9 @@ fun Navigation(){
 
          */
 
-        composable("detailscreen/{movieId}",
-            arguments = listOf(navArgument(name = "movieId"){type = NavType.StringType})) {
-                backStackEntry -> DetailScreen(movieId = backStackEntry.arguments?.getString("movieId"), navController)
+        composable(route = Screen.Detail.route,
+            arguments = listOf(navArgument(DETAIL_ARGUMENTED_KEY){type = NavType.StringType})) {
+                backStackEntry -> DetailScreen(movieId = backStackEntry.arguments?.getString(DETAIL_ARGUMENTED_KEY), navController)
         }
 
     }
