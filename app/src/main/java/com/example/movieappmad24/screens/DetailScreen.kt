@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
 
 
@@ -27,6 +28,14 @@ import com.example.movieappmad24.models.getMovies
 @Composable
 fun DetailScreen(movieId: String?, navController: NavController){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    var movieIndex = 0
+
+    val movies = getMovies()
+    for ((index, movie) in movies.withIndex()) {
+        if (movie.id == movieId) {
+             movieIndex = index
+        }
+    }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -39,7 +48,7 @@ fun DetailScreen(movieId: String?, navController: NavController){
                 ),
                 title = {
                     Text(
-                        "$movieId",
+                        "${getMovies().get(movieIndex).title}",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -56,7 +65,7 @@ fun DetailScreen(movieId: String?, navController: NavController){
             )
         },
     ) { innerPadding ->
-     //  MovieRow(movie = getMovies().)//ScrollContent(innerPadding)
+     MovieRow(getMovies().get(movieIndex)) //  MovieRow(movie = getMovies().)//ScrollContent(innerPadding)
     }
 }
 

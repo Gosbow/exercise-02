@@ -23,9 +23,17 @@ fun Navigation(){
             DetailScreen(movieId = "2", navController = navController)
         }
         */
+        /* BACKUP
         composable("detailscreen/{movieId}",
             arguments = listOf(navArgument(name = "movieId"){type = NavType.StringType})) {
             backStackEntry -> DetailScreen(movieId = backStackEntry.arguments?.getString("movieId"), navController)
+        }
+
+         */
+
+        composable("detailscreen/{movieId}",
+            arguments = listOf(navArgument(name = "movieId"){type = NavType.StringType})) {
+                backStackEntry -> DetailScreen(movieId = backStackEntry.arguments?.getString("movieId"), navController)
         }
 
     }

@@ -107,6 +107,7 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}){
         .padding(top = 15.dp)
         .clickable {
             onItemClick(movie.id) }) {
+          //  onItemClick(movie.title)}){
         Box(modifier = Modifier) {
 
             AsyncImage(model = movie.images.get(0), contentDescription = movie.title)
