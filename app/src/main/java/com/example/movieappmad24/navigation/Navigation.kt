@@ -32,10 +32,10 @@ fun Navigation(){
                 backStackEntry -> DetailScreen(movieId = backStackEntry.arguments?.getString(DETAIL_ARGUMENTED_KEY), navController)
         }
         composable(route = BottomBarScreen.Home.route){
-            HomeScreen(navController = navController)
+        HomeScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Watchlist.route){
-            WatchlistScreen(navController = navController)
+        WatchlistScreen(navController = navController)
         }
 
     }
