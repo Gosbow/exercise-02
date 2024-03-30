@@ -1,5 +1,8 @@
-package com.example.movieappmad24.screens
+package com.example.movieappmad24.ui.templates
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -15,54 +18,61 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieappmad24.logic.GetMovieIndex
-import com.example.movieappmad24.models.getMovies
-import com.example.movieappmad24.widgets.ImagesRow
+import androidx.navigation.compose.rememberNavController
 
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(movieId: String?, navController: NavController) {
+fun SimpleTopAppBar(BackArrow: Boolean = false, title: String?, navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-    var movieIndex = GetMovieIndex(movieId = movieId)
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
         topBar = {
-            CenterAlignedTopAppBar(
+            CenterAlignedTopAppBar( modifier = Modifier.padding(bottom = 20.dp),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
                     Text(
-                        "${getMovies().get(movieIndex).title}",
+                        "$title",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                 },
+                //if(BackArrow == true){
                 navigationIcon = {
-                    IconButton({ navController.popBackStack() }){ //onClick = { /* do something */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Return"
-                        )
+                    IconButton({ navController.popBackStack() }) { //onClick = { /* do something */ }) {
+                        if(BackArrow) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Return"
+                            )
+                        }
                     }
-                },
+                }
+                ,
 
-            )
+                )
         },
     ) { innerPadding ->
-        ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding)
-        }
+
+    }
 }
 
-
-
 /*
+@Preview
 @Composable
-fun DetailScreen(movieId: String?){
-    Text(text = "Hello detailscreen $movieId")
+fun PreviewSimpleTopBar() {
+    SimpleTopAppBar(title = "wie gehts", BackArrow = false, navController = rememberNavController())
+    Column(modifier = Modifier.padding(top = 77.dp)) {
+        Text("Ich bin sooo cool")
+    }
+}
+*/
 
-}*/
