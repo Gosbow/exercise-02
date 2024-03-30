@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -25,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad24.logic.MovieList
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.navigation.BottomBarScreen
 
 
 @Composable
@@ -48,14 +51,16 @@ fun TopandBottomBar(navController: NavController){
                     .padding(60.dp, 0.dp, 60.dp, 0.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    IconButton(onClick = { /* Aktion für das linke Symbol */ }) {
-                        Icon(Icons.Filled.Home, contentDescription = "Back to home")
+                    IconButton(onClick = {  /* Aktion für das linke Symbol */
+
+                     }) {
+                        Icon(Icons.Outlined.Home, contentDescription = "Back to home")
                     }
                     Text("Home")
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    IconButton(onClick = { /* Aktion für das rechte Symbol */ }) {
-                        Icon(imageVector = Icons.Outlined.Star, contentDescription = "Watchlist")
+                    IconButton(onClick = { navController.navigate(BottomBarScreen.Watchlist.route)/* Aktion für das rechte Symbol */ }) {
+                        Icon(imageVector = Icons.Filled.Star, contentDescription = "Watchlist")
                     }
                     Text("Watchlist")
                 }
