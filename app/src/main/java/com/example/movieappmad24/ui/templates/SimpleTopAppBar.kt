@@ -1,5 +1,6 @@
 package com.example.movieappmad24.ui.templates
 
+import android.annotation.SuppressLint
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -18,13 +19,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.movieappmad24.models.Movie
-import com.example.movieappmad24.models.getMovies
-import com.example.movieappmad24.widgets.ImagesRow
 
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SimpleTopAppBar(BackArrow: Boolean = false, title: String?, calledFunction: @Composable () -> Unit, navController: NavController) {
+fun SimpleTopAppBar(BackArrow: Boolean = false, title: String?, navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -58,6 +58,15 @@ fun SimpleTopAppBar(BackArrow: Boolean = false, title: String?, calledFunction: 
                 )
         },
     ) { innerPadding ->
-        calledFunction()
+
     }
 }
+
+/*
+@Preview
+@Composable
+fun PreviewSimpleTopBar(){
+    SimpleTopAppBar(title = "wie gehts", BackArrow = false, navController = rememberNavController())
+}
+*/
+

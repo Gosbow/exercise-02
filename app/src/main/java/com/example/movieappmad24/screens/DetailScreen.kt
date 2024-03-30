@@ -37,7 +37,7 @@ import coil.compose.AsyncImage
 import com.example.movieappmad24.logic.GetMovieIndex
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
-import com.example.movieappmad24.ui.templates.SimpleTopAppBar
+//import com.example.movieappmad24.ui.templates.SimpleTopAppBar
 import com.example.movieappmad24.widgets.ImagesRow
 import com.example.movieappmad24.widgets.MovieRow
 
