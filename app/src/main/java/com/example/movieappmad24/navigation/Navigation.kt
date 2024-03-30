@@ -17,11 +17,7 @@ fun Navigation(){
         composable(route = Screen.Home.route) {
             HomeScreen(navController)
         }
-/*
-        composable(route = Screen.Detail.route){
-            DetailScreen(movieId = "2", navController = navController)
-        }
-        */
+
         /* BACKUP
         composable("detailscreen/{movieId}",
             arguments = listOf(navArgument(name = "movieId"){type = NavType.StringType})) {

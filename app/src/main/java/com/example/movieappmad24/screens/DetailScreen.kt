@@ -34,24 +34,19 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.movieappmad24.logic.GetMovieIndex
 import com.example.movieappmad24.models.Movie
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.widgets.ImagesRow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(movieId: String?, navController: NavController){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-    var movieIndex = 0
+    var movieIndex = GetMovieIndex(movieId = movieId)
 
 
-    val movies = getMovies()
-    for ((index, movie) in movies.withIndex()) {
-        if (movie.id == movieId) {
-             movieIndex = index
-        }
-    }
-    val images = getMovies().get(movieIndex).images.toList()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 
@@ -80,36 +75,10 @@ fun DetailScreen(movieId: String?, navController: NavController){
             )
         },
     ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .padding(innerPadding),
-            contentAlignment = Alignment.Center
-        ) {
-            Column {
-                MovieRow(getMovies().get(movieIndex)) //  MovieRow(movie = getMovies().)//ScrollContent(innerPadding)
-                Box(modifier = Modifier.padding(end = 2.dp)) {
-                    LazyRow  {
-                        items(images) { imageUrl ->
-
-                              AsyncImage(
-                                model = imageUrl,
-                                contentDescription = getMovies().get(movieIndex).title, modifier = Modifier.padding(end = 5.dp)
-                                      .size(420.dp).clip(shape = RoundedCornerShape(10.dp))//.aspectRatio(16f/9f)
-                            )
-                        }
-                    }
-                }
-                /*Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-
-            }*/
-
-            }
+        ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding)
         }
-    }
 }
+
 
 
 /*
