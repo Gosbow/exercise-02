@@ -23,12 +23,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.movieappmad24.navigation.BottomBarScreen
 
-@SuppressLint("SuspiciousIndentation")
 @Composable
 fun SimpleBottomAppBar(navController: NavController) {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
 
-        BottomAppBar (modifier = Modifier.fillMaxWidth()) {
+        BottomAppBar (modifier = Modifier.fillMaxWidth(), content= {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -56,15 +55,15 @@ fun SimpleBottomAppBar(navController: NavController) {
                 }
 
             }
-            }
+            })
 }
 
-
+/*
 @Preview
 @Composable
 fun PreviewSimpleBottomAppBar (){
     SimpleBottomAppBar(navController = rememberNavController())
-}
+}*/
 
 
 
