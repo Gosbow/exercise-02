@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.BottomAppBar
@@ -21,11 +23,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.navigation.BottomBarScreen
 import com.example.movieappmad24.widgets.MovieRow
@@ -33,6 +37,7 @@ import com.example.movieappmad24.widgets.MovieRow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WatchlistScreen(navController: NavController){
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
         Scaffold(topBar = { CenterAlignedTopAppBar(modifier = Modifier.padding(top=5.dp), title = { Text(text = "Your Watchlist") }
         )
         }, bottomBar =  {
@@ -45,13 +50,13 @@ fun WatchlistScreen(navController: NavController){
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = { navController.navigate(BottomBarScreen.Home.route) }) {
-                            Icon(Icons.Outlined.Home, contentDescription = "Back to home")
+                            Icon(imageVector = if(currentBackStackEntry?.destination?.route == BottomBarScreen.Home.route) Icons.Filled.Home else Icons.Outlined.Home, contentDescription = "Back to home")
                         }
                         Text("Home")
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         IconButton(onClick = { /* Aktion für das rechte Symbol */ }) {
-                            Icon(imageVector = Icons.Outlined.Star, contentDescription = "Watchlist", modifier = Modifier.background(Color.Green))
+                            Icon(imageVector = if(currentBackStackEntry?.destination?.route == BottomBarScreen.Watchlist.route) Icons.Filled.Star else Icons.Outlined.Star, contentDescription = "Watchlist", modifier = Modifier.background(Color.Green))
                         }
                         Text("Watchlist")
                     }
@@ -76,4 +81,4 @@ fun WatchlistScreen(navController: NavController){
                 }
             }
         }
-    }
+}

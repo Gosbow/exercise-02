@@ -1,6 +1,7 @@
 package com.example.movieappmad24.screens
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,10 +22,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.movieappmad24.logic.MovieList
 import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.navigation.BottomBarScreen
@@ -40,6 +44,7 @@ fun HomeScreen(navController: NavController){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopandBottomBar(navController: NavController){
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
     Scaffold(topBar = { CenterAlignedTopAppBar(modifier = Modifier.padding(top=5.dp), title = { Text(text = "MovieAppMAD24") }
     )
     }, bottomBar =  {
@@ -54,13 +59,13 @@ fun TopandBottomBar(navController: NavController){
                     IconButton(onClick = {  /* Aktion für das linke Symbol */
 
                      }) {
-                        Icon(Icons.Outlined.Home, contentDescription = "Back to home")
+                        Icon(Icons.Outlined.Home, contentDescription = "Back to home", modifier = Modifier.background(Color.Green))
                     }
                     Text("Home")
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     IconButton(onClick = { navController.navigate(BottomBarScreen.Watchlist.route)/* Aktion für das rechte Symbol */ }) {
-                        Icon(imageVector = Icons.Filled.Star, contentDescription = "Watchlist")
+                        Icon(imageVector = if(currentBackStackEntry?.destination?.route == BottomBarScreen.Watchlist.route) Icons.Filled.Star else Icons.Outlined.Star, contentDescription = "Watchlist")
                     }
                     Text("Watchlist")
                 }
