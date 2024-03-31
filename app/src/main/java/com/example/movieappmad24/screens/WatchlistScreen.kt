@@ -1,5 +1,6 @@
 package com.example.movieappmad24.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,7 @@ import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.navigation.BottomBarScreen
 import com.example.movieappmad24.widgets.MovieRow
 
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WatchlistScreen(navController: NavController){
