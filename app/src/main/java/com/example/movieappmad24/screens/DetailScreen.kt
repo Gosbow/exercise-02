@@ -17,6 +17,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import com.example.movieappmad24.logic.GetMovieIndex
+import com.example.movieappmad24.logic.view
 import com.example.movieappmad24.models.getMovies
 import com.example.movieappmad24.viewmodels.MovieViewModel
 import com.example.movieappmad24.widgets.ImagesRow
@@ -55,9 +56,12 @@ fun DetailScreen(movieId: String?, navController: NavController, viewModel: Movi
             )
         },
     ) { innerPadding ->
-        ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding, viewModel)
+
+            view(getMovies().get(movieIndex).trailer)
+            ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding, viewModel)
         }
-}
+    }
+
 
 
 
