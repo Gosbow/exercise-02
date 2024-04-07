@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
@@ -35,9 +37,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.Movie
+import com.example.movieappmad24.viewmodels.MovieViewModel
 
 @Composable
-fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}){
+fun MovieRow(movie: Movie,viewModel: MovieViewModel, onItemClick: (String) -> Unit = {}){
     var expanded by remember { mutableStateOf(false) }
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -54,10 +57,10 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit = {}){
                     .size(48.dp)
                     .padding(8.dp)
                     .align(Alignment.TopEnd),
-                onClick = { /* Kommt noch etwas, die Logik für den Rest*/ }
+                onClick = { viewModel.toggleFavorite(movie) }
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.FavoriteBorder,
+                    imageVector = if(viewModel.getisFavorite(movie)) Icons.Outlined.FavoriteBorder else Icons.Filled.Favorite,
                     contentDescription = "Add to Favorites",
                     modifier = Modifier.size(24.dp)
                 )

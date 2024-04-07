@@ -9,14 +9,16 @@ import androidx.navigation.navArgument
 import com.example.movieappmad24.screens.DetailScreen
 import com.example.movieappmad24.screens.HomeScreen
 import com.example.movieappmad24.screens.WatchlistScreen
+import com.example.movieappmad24.viewmodels.MovieViewModel
+
 
 @Composable
-fun Navigation(){
+fun Navigation(viewModel: MovieViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(route = Screen.Home.route) {
-            HomeScreen(navController)
+            HomeScreen(navController,viewModel)
         }
 
         /* BACKUP
@@ -29,10 +31,14 @@ fun Navigation(){
 
         composable(route = Screen.Detail.route,
             arguments = listOf(navArgument(DETAIL_ARGUMENTED_KEY){type = NavType.StringType})) {
-                backStackEntry -> DetailScreen(movieId = backStackEntry.arguments?.getString(DETAIL_ARGUMENTED_KEY), navController)
+                backStackEntry -> DetailScreen(
+            movieId = backStackEntry.arguments?.getString(DETAIL_ARGUMENTED_KEY),
+            navController,
+            viewModel
+        )
         }
         composable(route = BottomBarScreen.Home.route){
-        HomeScreen(navController = navController)
+        HomeScreen(navController = navController, viewModel)
         }
         composable(route = BottomBarScreen.Watchlist.route){
         WatchlistScreen(navController = navController)

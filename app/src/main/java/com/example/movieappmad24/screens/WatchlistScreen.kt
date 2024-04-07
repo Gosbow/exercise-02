@@ -77,9 +77,9 @@ fun WatchlistScreen(navController: NavController){
                 Column(modifier = Modifier
                     .padding(bottom = 5.dp)
                     .verticalScroll(rememberScrollState())) {
-                    MovieRow(getMovies().get(0))
-                    MovieRow(getMovies().get(5))
-                    MovieRow(getMovies().get(1))
+                 //   MovieRow(getMovies().get(0))
+                  //  MovieRow(getMovies().get(5))
+                   // MovieRow(getMovies().get(1))
                 }
             }
         }
