@@ -57,10 +57,12 @@ fun MovieRow(movie: Movie,viewModel: MovieViewModel, onItemClick: (String) -> Un
                     .size(48.dp)
                     .padding(8.dp)
                     .align(Alignment.TopEnd),
-                onClick = { viewModel.toggleFavorite(movie) }
+                onClick = { viewModel.toggleFavorite(movie)
+                viewModel.manageFavorite(movie)}
             ) {
                 Icon(
-                    imageVector = if(viewModel.getisFavorite(movie)) Icons.Outlined.FavoriteBorder else Icons.Filled.Favorite,
+                    imageVector = if(viewModel.getisFavorite(movie))  Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                    tint = if(viewModel.getisFavorite(movie)) Color.Red else Color.Black,
                     contentDescription = "Add to Favorites",
                     modifier = Modifier.size(24.dp)
                 )

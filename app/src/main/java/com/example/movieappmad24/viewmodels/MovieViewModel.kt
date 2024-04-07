@@ -9,7 +9,7 @@ import com.example.movieappmad24.models.getMovies
 class MovieViewModel : ViewModel() {
 
     val movies = getMovies().associateWith { movie -> mutableStateOf(movie.isFavorite) }.toMutableMap()
-
+    var lst = mutableListOf<Movie>()
     fun toggleFavorite(movie: Movie){
 
 
@@ -29,5 +29,14 @@ class MovieViewModel : ViewModel() {
     }
 
 
+    fun manageFavorite(movie: Movie){
+        if(lst.contains(movie) && movies[movie]?.value == false)
+            lst.remove(movie)
+        else
+            lst.add(movie)
+    }
 
+    fun getFavorite(): List<Movie>{
+        return lst
+    }
 }

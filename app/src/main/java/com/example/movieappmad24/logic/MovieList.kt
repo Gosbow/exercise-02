@@ -11,12 +11,14 @@ import com.example.movieappmad24.widgets.MovieRow
 
 @Composable
 fun MovieList(lst: List<Movie>, navController: NavController, viewModel: MovieViewModel){
-    LazyColumn{
-        items(lst){ m ->
-            MovieRow(m, viewModel) {movieId ->
-                navController.navigate(route= Screen.Detail.MovieId(movieId))
+
+        LazyColumn {
+            if(lst.isNotEmpty()) {
+            items(lst) { m ->
+                MovieRow(m, viewModel) { movieId ->
+                    navController.navigate(route = Screen.Detail.MovieId(movieId))
+                }
             }
         }
     }
-
 }

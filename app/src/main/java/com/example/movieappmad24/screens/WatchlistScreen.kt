@@ -31,14 +31,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.logic.MovieList
 import com.example.movieappmad24.navigation.BottomBarScreen
+import com.example.movieappmad24.viewmodels.MovieViewModel
 import com.example.movieappmad24.widgets.MovieRow
 
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WatchlistScreen(navController: NavController){
+fun WatchlistScreen(navController: NavController, viewModel: MovieViewModel){
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
         Scaffold(topBar = { CenterAlignedTopAppBar(modifier = Modifier.padding(top=5.dp), title = { Text(text = "Your Watchlist") }
         )
@@ -73,14 +74,9 @@ fun WatchlistScreen(navController: NavController){
                 .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                // Change Function Call to use this Overview for another things.
-                Column(modifier = Modifier
-                    .padding(bottom = 5.dp)
-                    .verticalScroll(rememberScrollState())) {
-                 //   MovieRow(getMovies().get(0))
-                  //  MovieRow(getMovies().get(5))
-                   // MovieRow(getMovies().get(1))
-                }
+
+                MovieList(lst = viewModel.getFavorite(), navController = navController, viewModel = viewModel)
+
             }
         }
 }

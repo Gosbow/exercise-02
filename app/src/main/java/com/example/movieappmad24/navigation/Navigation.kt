@@ -41,7 +41,7 @@ fun Navigation(viewModel: MovieViewModel) {
         HomeScreen(navController = navController, viewModel)
         }
         composable(route = BottomBarScreen.Watchlist.route){
-        WatchlistScreen(navController = navController)
+        WatchlistScreen(navController = navController, viewModel = viewModel)
         }
 
     }
