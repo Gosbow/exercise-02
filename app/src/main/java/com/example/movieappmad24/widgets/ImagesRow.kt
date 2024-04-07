@@ -15,10 +15,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.viewmodels.MovieViewModel
 
 
 @Composable
-fun ImagesRow(movieIndex: Int, innerPadding: PaddingValues) {
+fun ImagesRow(movieIndex: Int, innerPadding: PaddingValues, viewModel: MovieViewModel) {
     val images = getMovies().get(movieIndex).images.toList()
 
     Box(
@@ -26,7 +27,7 @@ fun ImagesRow(movieIndex: Int, innerPadding: PaddingValues) {
         contentAlignment = Alignment.Center
     ) {
         Column {
-            MovieRow(getMovies().get(movieIndex)) //  MovieRow(movie = getMovies().)//ScrollContent(innerPadding)
+            MovieRow(getMovies().get(movieIndex),viewModel) //  MovieRow(movie = getMovies().)//ScrollContent(innerPadding)
             Box(modifier = Modifier.padding(end = 2.dp)) {
                 LazyRow {
                     items(images) { imageUrl ->

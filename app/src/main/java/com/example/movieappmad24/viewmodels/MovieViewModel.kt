@@ -1,5 +1,6 @@
 package com.example.movieappmad24.viewmodels
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.movieappmad24.models.Movie
@@ -8,10 +9,34 @@ import com.example.movieappmad24.models.getMovies
 class MovieViewModel : ViewModel() {
 
     val movies = getMovies().associateWith { movie -> mutableStateOf(movie.isFavorite) }.toMutableMap()
-
+    var lst = mutableListOf<Movie>()
     fun toggleFavorite(movie: Movie){
 
-        val isFavorite = movies[movie]?.value
-        movies[movie]?.value = !(isFavorite ?: false)
+
+        Log.v("ViewModel", movies[movie]?.value.toString())
+
+        if(movies[movie]?.value == true){
+            movies[movie]?.value = false
+        } else {
+            movies[movie]?.value = true
+        }
+        Log.v("ViewModel1", movies[movie]?.value.toString())
+    }
+
+    fun getisFavorite(movie: Movie): Boolean{
+        Log.v("ViewModel3", movies[movie]?.value.toString())
+        return movies[movie]?.value ?: false
+    }
+
+
+    fun manageFavorite(movie: Movie){
+        if(lst.contains(movie) && movies[movie]?.value == false)
+            lst.remove(movie)
+        else
+            lst.add(movie)
+    }
+
+    fun getFavorite(): List<Movie>{
+        return lst
     }
 }

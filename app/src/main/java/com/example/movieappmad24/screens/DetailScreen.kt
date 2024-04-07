@@ -18,11 +18,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import com.example.movieappmad24.logic.GetMovieIndex
 import com.example.movieappmad24.models.getMovies
+import com.example.movieappmad24.viewmodels.MovieViewModel
 import com.example.movieappmad24.widgets.ImagesRow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(movieId: String?, navController: NavController) {
+fun DetailScreen(movieId: String?, navController: NavController, viewModel: MovieViewModel) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var movieIndex = GetMovieIndex(movieId = movieId)
 
@@ -54,7 +55,7 @@ fun DetailScreen(movieId: String?, navController: NavController) {
             )
         },
     ) { innerPadding ->
-        ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding)
+        ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding, viewModel)
         }
 }
 
