@@ -1,5 +1,7 @@
 package com.example.movieappmad24.screens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -15,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad24.logic.GetMovieIndex
 import com.example.movieappmad24.models.getMovies
@@ -44,7 +47,7 @@ fun DetailScreen(movieId: String?, navController: NavController, viewModel: Movi
                     )
                 },
                 navigationIcon = {
-                    IconButton({ navController.popBackStack() }){ //onClick = { /* do something */ }) {
+                    IconButton({ navController.popBackStack() }) { //onClick = { /* do something */ }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Return"
@@ -52,12 +55,15 @@ fun DetailScreen(movieId: String?, navController: NavController, viewModel: Movi
                     }
                 },
 
-            )
+                )
         },
     ) { innerPadding ->
+
         ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding, viewModel)
-        }
+
+    }
 }
+
 
 
 
