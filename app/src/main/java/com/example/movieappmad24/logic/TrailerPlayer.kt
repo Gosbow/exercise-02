@@ -21,15 +21,16 @@ import androidx.media3.ui.PlayerView
 
 
 @Composable
-fun view(filename: String){
+fun TrailerPlayer(filename: String){
     var lifecycle by remember {
         mutableStateOf(Lifecycle.Event.ON_CREATE)
     }
 
     val context = LocalContext.current
+    val resourceId = context.resources.getIdentifier(filename, "raw", context.packageName)
 
     val mediaItem =
-        MediaItem.fromUri("android.resource://${context.packageName}/$filename")
+        MediaItem.fromUri("android.resource://${context.packageName}/$resourceId")
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -76,7 +77,7 @@ fun view(filename: String){
 @Preview
 fun videotest(){
     //Surface(modifier = Modifier.fillMaxSize()){
-    view(filename = "trailer")
+    TrailerPlayer(filename = "R.raw.trailer_placeholder")
     //Text("ich bin ein Test")
     //}
 
