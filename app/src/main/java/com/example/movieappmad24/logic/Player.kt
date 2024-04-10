@@ -1,16 +1,9 @@
 package com.example.movieappmad24.logic
 
-import android.annotation.SuppressLint
-import android.net.Uri
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.PlainTooltipBox
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,45 +18,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-import com.example.movieappmad24.R
 
-
-/*
-@Composable
-fun player(filename: String): ExoPlayer {
-    val context = LocalContext.current
-    val resourceId = context.resources.getIdentifier(filename, "raw", context.packageName)
-    val uri = Uri.parse("android.resource://${context.packageName}/$resourceId")
-    val mediaItem = MediaItem.fromUri(uri)
-    val player = remember { ExoPlayer.Builder(context).build().apply { setMediaItem(mediaItem)
-        prepare() } }
-    val lifecycle = LocalLifecycleOwner.current.lifecycle
-
-    LaunchedEffect(player) {
-        val lifecycleObserver = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_RESUME -> player.play()
-                Lifecycle.Event.ON_STOP -> player.pause()
-                else -> Unit
-            }
-        }
-        lifecycle.addObserver(lifecycleObserver)
-    }
-
-    return player
-}
-
-@Composable
-fun view(filename: String){
-    val player = player(filename = filename)
-
-    AndroidView({ context ->
-        val playerView = PlayerView(context)
-        playerView.player = player
-        playerView
-    }, modifier = Modifier.fillMaxWidth())
-}
-*/
 
 @Composable
 fun view(filename: String){
@@ -74,7 +29,7 @@ fun view(filename: String){
     val context = LocalContext.current
 
     val mediaItem =
-        MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.trailer_placeholder}")
+        MediaItem.fromUri("android.resource://${context.packageName}/$filename")
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -116,8 +71,7 @@ fun view(filename: String){
 }
 
 
-
-
+/*
 @Composable
 @Preview
 fun videotest(){
@@ -126,4 +80,4 @@ fun videotest(){
     //Text("ich bin ein Test")
     //}
 
-}
+}*/

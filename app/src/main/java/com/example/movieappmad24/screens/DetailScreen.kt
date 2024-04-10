@@ -57,7 +57,7 @@ fun DetailScreen(movieId: String?, navController: NavController, viewModel: Movi
         },
     ) { innerPadding ->
 
-            view(getMovies().get(movieIndex).trailer)
+            view("R.raw."+getMovies().get(movieIndex).trailer)
             ImagesRow(movieIndex = movieIndex, innerPadding = innerPadding, viewModel)
         }
     }
